@@ -1,13 +1,15 @@
-const express = require("express");
-const routes = require("./routes/index");
-const app = express();
+const app = require("./app");
+const { conn } = require("./models/index");
 
-app.use(express.json());
-app.use("/api", routes);
-
-app.listen(3001, () => {
-  console.log("Servidor Escuchando el puerto 3001");
-});
+conn
+  .sync({
+    force: true,
+  })
+  .then(() => {
+    app.listen(3001, () => {
+      console.log("Servidor Escuchando el puerto 3001");
+    });
+  });
 
 //characters hasMany episodes
 //episodes hasMany characters
