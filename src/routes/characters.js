@@ -51,12 +51,18 @@ router.get("/:id", async (req, res, next) => {
         include: Episode,
       });
     } else {
-      var character = await axios.get(
+      var characterResponse = await axios.get(
         "https://rickandmortyapi.com/api/character/" + id
       );
+      characterResponse = characterResponse.data;
+      character = {
+        id: characterResponse.id,
+        name: characterResponse.name,
+        image: characterResponse.image,
+      };
     }
 
-    return res.json(character.data);
+    return res.json(character);
   } catch (error) {
     next(error);
   }
