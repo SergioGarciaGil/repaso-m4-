@@ -30,14 +30,21 @@ router.get("/all", (req, res, next) => {
     .catch((error) => next(error));
 });
 router.post("/", (req, res, next) => {
-  const { name, image } = req.body;
+  const { name, image, episodes } = req.body;
   Character.create({
     id: uuidv4(), //tenemos que installa uuid4 y importarlo
     name,
     image,
   })
+    // .then((createCharacter) => {
+    //   res.json(createCharacter);
+    // })
     .then((createCharacter) => {
-      res.json(createCharacter);
+      // agregamos character mas episodios
+      return createCharacter.setEpisodes(episodes); //para argregar arreglo de episodios agregamos un s al final de set+nombre(s)
+    })
+    .then((characterWithEpisodes) => {
+      res.json(characterWithEpisodes);
     })
     .catch((error) => next(error));
   // res.send("soy la ruta Post de Character");
