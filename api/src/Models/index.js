@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 // const { dbUser, dbPassword, dbHost, dbName } = require("./../../utils/config");
-const characterFactory = require("./characters");
+const characterFactory = require("./Characters");
 const episodesFactory = require("./episodes");
 
 const sequelize = new Sequelize(
